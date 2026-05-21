@@ -1,77 +1,49 @@
-# Zomato-Cursor
+# Zomato AI Engine 🍽️🔮
 
-AI-powered restaurant recommendation inspired by Zomato. Combines structured filtering over a real Hugging Face dataset with an LLM for ranked, explained suggestions.
+![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.30+-red.svg)
+![Gemini](https://img.shields.io/badge/Gemini-2.5_Flash-orange.svg)
 
-## Documentation
+> **Live Demo:** [https://zomato-recommendation-basotra.streamlit.app/](https://zomato-recommendation-basotra.streamlit.app/)
 
-| Document | Description |
-|----------|-------------|
-| [docs/problemStatement.md](docs/problemStatement.md) | Product context, objectives, success criteria |
-| [docs/architecture.md](docs/architecture.md) | System design, components, sequence diagrams |
-| [docs/implementationPlan.md](docs/implementationPlan.md) | Phase-wise build plan |
-| [docs/edgecase.md](docs/edgecase.md) | Edge cases and expected behavior |
-| [docs/eval/README.md](docs/eval/README.md) | Per-phase evaluation criteria |
+A futuristic, AI-powered dining concierge that recommends restaurants based on your specific "vibe" and natural language preferences. It analyzes over 50,000 real Zomato restaurant reviews using Google's **Gemini 2.5 Flash** LLM to curate the perfect dining experience for you.
 
-## Requirements
+## Features
+- **Semantic Vibe Matching:** Don't just search for "Italian". Search for *"A quiet, romantic rooftop with jazz music and vegan options."*
+- **Lightning Fast Data Pipeline:** Uses Parquet columnar storage for sub-millisecond filtering of 50k+ restaurants before passing context to the LLM.
+- **Auto-Repairing LLM Orchestrator:** Validates the LLM's JSON output to prevent hallucinations, automatically prompting the LLM to self-correct if it makes a mistake.
+- **Glassmorphic UI:** A beautifully designed dark-mode Streamlit interface using custom injected CSS and Tailwind-inspired aesthetics.
 
-- Python 3.11+
-- (Later phases) Hugging Face access for dataset ingest
-- (Later phases) LLM API key in `.env`
+## Running Locally
 
-## Setup
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/vishwasbasotra/Zomato-Recommendation.git
+   cd Zomato-Recommendation
+   ```
 
-```bash
-python -m venv .venv
+2. **Set up the environment:**
+   Create a `.env` file (copy from `.env.example`) and add your Gemini API Key:
+   ```env
+   LLM_API_KEY="your_actual_gemini_key_here"
+   ```
 
-# Windows
-.venv\Scripts\activate
+3. **Install dependencies using `uv`:**
+   ```bash
+   uv pip install -e .
+   ```
 
-# macOS / Linux
-# source .venv/bin/activate
+4. **Ingest the Dataset:**
+   Downloads and processes the raw Zomato dataset into a highly-optimized Parquet file.
+   ```bash
+   python scripts/ingest.py
+   ```
 
-pip install -e ".[dev]"
-```
+5. **Start the App:**
+   ```bash
+   streamlit run streamlit_app.py
+   ```
 
-Copy environment template and add secrets locally (never commit `.env`):
+---
 
-```bash
-copy .env.example .env   # Windows
-# cp .env.example .env   # macOS / Linux
-```
-
-Verify configuration:
-
-```bash
-python -c "from zomato_cursor.config import settings; print(settings.DATA_PATH)"
-```
-
-## Run API (stub — full stack from Phase 4+)
-
-```bash
-uvicorn zomato_cursor.api.main:app --reload --port 8000
-```
-
-Health check: http://localhost:8000/api/v1/health
-
-## Development
-
-```bash
-pytest
-ruff check src tests
-```
-
-## Implementation status
-
-| Phase | Status |
-|-------|--------|
-| 0 — Bootstrap | Complete |
-| 1 — Data pipeline | Pending |
-| 2 — Filtering | Pending |
-| 3 — LLM | Pending |
-| 4 — API | Pending |
-| 5 — UI | Pending |
-| 6 — Release | Pending |
-
-## License
-
-Portfolio / learning project.
+*Built with ❤️ and Gemini 2.5 Flash.*
