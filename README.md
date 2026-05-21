@@ -46,4 +46,3 @@ A futuristic, AI-powered dining concierge that recommends restaurants based on y
 
 ---
 
-*Built with ❤️ and Gemini 2.5 Flash.*
